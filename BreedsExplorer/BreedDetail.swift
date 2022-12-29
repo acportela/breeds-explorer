@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct BreedDetail: View {
-
-    let breed: Breed
-
+    
+    let breed: BreedImageModel
+    
     var body: some View {
-
+        
         VStack(alignment: .center, spacing: 16.0) {
-            Image(systemName: breed.image)
+            Image(systemName: .pawImage)
                 .resizable()
                 .scaledToFit()
                 .frame(height: 100)
@@ -28,6 +28,6 @@ struct BreedDetail: View {
 
 struct BreedDetail_Previews: PreviewProvider {
     static var previews: some View {
-        BreedDetail(breed: BreedsModel().breeds[0])
+        BreedDetail(breed: BreedImageModel.testModel[0])
     }
 }

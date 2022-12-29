@@ -10,27 +10,39 @@ import SwiftUI
 struct BreedsImagesExplorer: View {
 
     @ObservedObject var model: BreedsModel
+
     @State var layoutConfiguration = LayoutConfiguration.grid
+
+    var state: ViewState {
+        model.breedsImages == nil ? .loading : .content
+    }
 
     var body: some View {
 
-        ZStack {
-            switch layoutConfiguration {
-            case .grid:
-                ScrollView {
-                    BreedsGrid(breeds: model.breeds)
+        LoadingView(viewState: state) {
+            ZStack {
+                switch layoutConfiguration {
+                case .grid:
+                    BreedsGrid(breeds: model.breedsImages ?? [])
+                case .list:
+                    BreedsImageList(breeds: model.breedsImages ?? [])
                 }
-            case .list:
-                BreedsImageList(breeds: model.breeds)
             }
-        }
-        .toolbar {
-            ToolbarItem {
-                toolbarItem
+            .task {
+                do {
+                    try await self.model.fetchBreedsImages()
+                } catch {
+                    // TODO: Handle Error
+                }
             }
+            .toolbar {
+                ToolbarItem {
+                    toolbarItem
+                }
+            }
+            .background(Color.breedsSecondaryColor)
+            .navigationTitle(String.breeds)
         }
-        .background(Color.breedsSecondaryColor)
-        .navigationTitle(String.breeds)
     }
 
     @ViewBuilder

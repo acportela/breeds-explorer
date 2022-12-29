@@ -9,29 +9,25 @@ import SwiftUI
 
 struct BreedsImageList: View {
 
-    let breeds: [Breed]
+    let breeds: [BreedImageModel]
 
     var body: some View {
 
         List {
             ForEach(breeds) { breed in
-                HStack(spacing: 16.0) {
-                    Image(systemName: breed.image)
-                        .resizable()
-                        .scaledToFit()
-                    Text(breed.name)
-                        .font(.title2)
-
+                HStack(spacing: 16) {
+                    ImageAndTextView(breed: breed)
                 }
+                .frame(height: 70)
                 .background(NavigationLink(value: breed) { }.opacity(0))
-                .frame(height: 60)
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.breedsSecondaryColor)
             }
+            .listRowInsets(.init(top: 8, leading: 24, bottom: 8, trailing: 24))
         }
         .listStyle(.plain)
         .foregroundColor(Color.breedsPrimaryColor)
-        .navigationDestination(for: Breed.self) { breed in
+        .navigationDestination(for: BreedImageModel.self) { breed in
             BreedDetail(breed: breed)
         }
     }
@@ -39,6 +35,6 @@ struct BreedsImageList: View {
 
 struct BreedsImageList_Previews: PreviewProvider {
     static var previews: some View {
-        BreedsImageList(breeds: BreedsModel().breeds)
+        BreedsImageList(breeds: BreedImageModel.testModel)
     }
 }
