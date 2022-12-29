@@ -9,30 +9,28 @@ import SwiftUI
 
 struct BreedsImagesExplorer: View {
 
-    @ObservedObject var model: BreedsModel
+    @ObservedObject var model: BreedsImagesModel
 
-    @State var layoutConfiguration = LayoutConfiguration.grid
+    @State private var layoutConfiguration = LayoutConfiguration.grid
 
     var state: ViewState {
-        model.breedsImages == nil ? .loading : .content
+        model.images == nil ? .loading : .content
     }
 
     var body: some View {
 
-        LoadingView(viewState: state) {
+        LoadingView(isLoading: model.isFetching) {
             ZStack {
                 switch layoutConfiguration {
                 case .grid:
-                    BreedsGrid(breeds: model.breedsImages ?? [])
+                    BreedsGrid(breeds: model.images ?? [])
                 case .list:
-                    BreedsImageList(breeds: model.breedsImages ?? [])
+                    BreedsImageList(breeds: model.images ?? [])
                 }
             }
-            .task {
-                do {
-                    try await self.model.fetchBreedsImages()
-                } catch {
-                    // TODO: Handle Error
+            .onAppear {
+                if model.images == nil {
+                    self.model.fetchBreedsImages(page: 0, order: .random)
                 }
             }
             .toolbar {
@@ -47,7 +45,6 @@ struct BreedsImagesExplorer: View {
 
     @ViewBuilder
     var toolbarItem: some View {
-
         Menu {
             Picker("", selection: $layoutConfiguration) {
                 ForEach(LayoutConfiguration.allCases) { config in
@@ -59,25 +56,25 @@ struct BreedsImagesExplorer: View {
             Label("", systemImage: layoutConfiguration.icon).labelStyle(.iconOnly)
         }
     }
+}
 
-    enum LayoutConfiguration: String, CaseIterable, Identifiable {
+private enum LayoutConfiguration: String, CaseIterable, Identifiable {
 
-        case grid, list
+    case grid, list
 
-        var id: String { self.rawValue }
+    var id: String { self.rawValue }
 
-        var title: String {
-            switch self {
-            case .grid: return .grid
-            case .list: return .list
-            }
+    var title: String {
+        switch self {
+        case .grid: return .grid
+        case .list: return .list
         }
+    }
 
-        var icon: String {
-            switch self {
-            case .grid: return .gridIcon
-            case .list: return .listIcon
-            }
+    var icon: String {
+        switch self {
+        case .grid: return .gridIcon
+        case .list: return .listIcon
         }
     }
 }
@@ -85,7 +82,6 @@ struct BreedsImagesExplorer: View {
 struct BreedsImagesExplorer_Previews: PreviewProvider {
 
     static var previews: some View {
-
-        BreedsImagesExplorer(model: BreedsModel())
+        BreedsImagesExplorer(model: BreedsImagesModel(breedsProvider: BreedsImagesProviderMock()))
     }
 }

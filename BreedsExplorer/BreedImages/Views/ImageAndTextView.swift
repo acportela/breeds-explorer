@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ImageAndTextView: View {
 
-    let breed: BreedImageModel
+    let breed: BreedImage
 
     var body: some View {
         AsyncImage(url: breed.imageURL) { phase in
@@ -33,6 +33,6 @@ struct ImageAndTextView: View {
 
 struct ImageAndTextView_Previews: PreviewProvider {
     static var previews: some View {
-        ImageAndTextView(breed: BreedImageModel.testModel[0])
+        ImageAndTextView(breed: BreedsImagesProviderMock.testModel[0])
     }
 }

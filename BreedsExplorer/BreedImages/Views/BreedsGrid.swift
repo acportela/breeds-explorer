@@ -9,11 +9,9 @@ import SwiftUI
 
 struct BreedsGrid: View {
 
-    let breeds: [BreedImageModel]
+    let breeds: [BreedImage]
 
-    var gridItems: [GridItem] {
-        [GridItem(.adaptive(minimum: 72, maximum: 100), spacing: 24, alignment: .top)]
-    }
+    var gridItems: [GridItem] { [GridItem(.adaptive(minimum: 72, maximum: 100), spacing: 24, alignment: .top)] }
 
     var body: some View {
         ScrollView {
@@ -28,7 +26,7 @@ struct BreedsGrid: View {
             }
             .padding(.init(top: 8, leading: 24, bottom: 8, trailing: 24))
             .foregroundColor(Color.breedsPrimaryColor)
-            .navigationDestination(for: BreedImageModel.self) { breed in
+            .navigationDestination(for: BreedImage.self) { breed in
                 BreedDetail(breed: breed)
             }
         }
@@ -37,6 +35,6 @@ struct BreedsGrid: View {
 
 struct BreedsGrid_Previews: PreviewProvider {
     static var previews: some View {
-        BreedsGrid(breeds: BreedImageModel.testModel)
+        BreedsGrid(breeds: BreedsImagesProviderMock.testModel)
     }
 }

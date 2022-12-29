@@ -14,7 +14,7 @@ enum ViewState {
 
 struct LoadingView<Content>: View where Content: View {
 
-    let viewState: ViewState
+    let isLoading: Bool
     var content: () -> Content
 
     var body: some View {
@@ -22,8 +22,8 @@ struct LoadingView<Content>: View where Content: View {
             ZStack(alignment: .center) {
 
                 self.content()
-                    .disabled(viewState == .loading)
-                    .blur(radius: viewState == .loading ? 3 : 0)
+                    .disabled(isLoading)
+                    .blur(radius: isLoading ? 3 : 0)
 
                 VStack {
                     Text("Loading...")
@@ -33,7 +33,7 @@ struct LoadingView<Content>: View where Content: View {
                 .background(Color.breedsSecondaryColor)
                 .foregroundColor(Color.breedsPrimaryColor)
                 .cornerRadius(20)
-                .opacity(viewState == .loading ? 1 : 0)
+                .opacity(isLoading ? 1 : 0)
             }
         }
     }

@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct BreedDetail: View {
-    
-    let breed: BreedImageModel
-    
+
+    let breed: BreedImage
+
     var body: some View {
-        
         VStack(alignment: .center, spacing: 16.0) {
             Image(systemName: .pawImage)
                 .resizable()
@@ -28,6 +27,6 @@ struct BreedDetail: View {
 
 struct BreedDetail_Previews: PreviewProvider {
     static var previews: some View {
-        BreedDetail(breed: BreedImageModel.testModel[0])
+        BreedDetail(breed: BreedsImagesProviderMock.testModel[0])
     }
 }

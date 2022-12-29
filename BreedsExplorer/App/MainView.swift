@@ -9,12 +9,12 @@ import SwiftUI
 
 struct MainView: View {
 
-    @ObservedObject var model: BreedsModel
+    @ObservedObject var imagesModel: BreedsImagesModel
 
     var body: some View {
         TabView {
             NavigationStack {
-                BreedsImagesExplorer(model: model)
+                BreedsImagesExplorer(model: imagesModel)
             }.tabItem {
                 Label(String.breeds, systemImage: .pawImage)
             }
@@ -25,7 +25,6 @@ struct MainView: View {
                 SearchBreeds()
             }.tabItem {
                 Label(String.search, systemImage: .searchImage)
-
             }
             .toolbarBackground(.visible, for: .tabBar)
             .toolbarBackground(Color.breedsSecondaryColor, for: .tabBar)
@@ -36,6 +35,6 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(model: BreedsModel())
+        MainView(imagesModel: BreedsImagesModel(breedsProvider: BreedsImagesProviderMock()))
     }
 }

@@ -30,10 +30,7 @@ struct CatImageDecodable: Decodable {
         let breeds = try container.decode([BreedInformation].self, forKey: .breeds)
 
         guard let breed = breeds.first, let url = URL(string: urlString) else {
-
-            let description = String(describing: type(of: Self.self))
-            let context = DecodingError.Context(codingPath: decoder.codingPath, debugDescription: description)
-            throw DecodingError.valueNotFound(Self.self, context)
+            throw BreedsRequestError.invalidContent
         }
 
         self.breed = breed
