@@ -1,5 +1,5 @@
 //
-//  BreedsImagesExplorer.swift
+//  BreedsImagesView.swift
 //  BreedsExplorer
 //
 //  Created by Antonio Rodrigues on 28/12/2022.
@@ -7,10 +7,9 @@
 
 import SwiftUI
 
-struct BreedsImagesExplorer: View {
+struct BreedsImagesView: View {
 
-    @ObservedObject var model: BreedsImagesModel
-
+    @StateObject var model: BreedsImagesModel
     @State private var layoutConfiguration = LayoutConfiguration.grid
     @State private var sortOrder = ImagesSortOrder.random
 
@@ -22,7 +21,7 @@ struct BreedsImagesExplorer: View {
                 case .grid:
                     BreedsGrid(breeds: model.images ?? [])
                 case .list:
-                    BreedsImageList(breeds: model.images ?? [])
+                    BreedsImagesList(breeds: model.images ?? [])
                 }
             }
             .onAppear {
@@ -67,7 +66,7 @@ struct BreedsImagesExplorer: View {
     }
 }
 
-private extension BreedsImagesExplorer {
+private extension BreedsImagesView {
 
     enum LayoutConfiguration: String, CaseIterable, Identifiable {
 
@@ -133,7 +132,9 @@ private extension String {
 
 struct BreedsImagesExplorer_Previews: PreviewProvider {
 
+    static let model = BreedsImagesModel(provider: BreedsImagesProviderMock())
+
     static var previews: some View {
-        BreedsImagesExplorer(model: BreedsImagesModel(breedsProvider: BreedsImagesProviderMock()))
+        BreedsImagesView(model: model)
     }
 }

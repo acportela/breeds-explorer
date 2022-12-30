@@ -10,11 +10,9 @@ import SwiftUI
 @main
 struct BreedsExplorerApp: App {
 
-    @StateObject var imagesModel = BreedsImagesModel(breedsProvider: BreedsImagesProvider())
-
     var body: some Scene {
         WindowGroup {
-            MainView(imagesModel: imagesModel)
+            MainView(imageProvider: BreedsImagesProvider())
         }
     }
 }

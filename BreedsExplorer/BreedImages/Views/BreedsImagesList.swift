@@ -1,5 +1,5 @@
 //
-//  BreedsImageList.swift
+//  BreedsImagesList.swift
 //  BreedsExplorer
 //
 //  Created by Antonio Rodrigues on 28/12/2022.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BreedsImageList: View {
+struct BreedsImagesList: View {
 
     let breeds: [Breed]
 
@@ -35,6 +35,6 @@ struct BreedsImageList: View {
 
 struct BreedsImageList_Previews: PreviewProvider {
     static var previews: some View {
-        BreedsImageList(breeds: BreedsImagesProviderMock.testModel)
+        BreedsImagesList(breeds: BreedsImagesProviderMock.testModel)
     }
 }

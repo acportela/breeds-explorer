@@ -17,10 +17,10 @@ final class BreedsImagesModel: ObservableObject {
     }
     @Published var isFetching = false
 
-    private let breedsProvider: BreedsImagesProviderProtocol
+    private let provider: BreedsImagesProviderProtocol
 
-    init(breedsProvider: BreedsImagesProviderProtocol) {
-        self.breedsProvider = breedsProvider
+    init(provider: BreedsImagesProviderProtocol) {
+        self.provider = provider
     }
 
     func fetchBreedsImages(page: UInt, sortOrder: ImagesSortOrder) {
@@ -29,7 +29,7 @@ final class BreedsImagesModel: ObservableObject {
 
         Task {
             do {
-                self.images = try await breedsProvider.loadBreedImages(page: page, order: sortOrder.resultOrder)
+                self.images = try await provider.loadBreedImages(page: page, order: sortOrder.resultOrder)
             } catch {
                 throw error
             }
