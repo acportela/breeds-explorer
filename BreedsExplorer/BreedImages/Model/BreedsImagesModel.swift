@@ -23,16 +23,27 @@ final class BreedsImagesModel: ObservableObject {
         self.breedsProvider = breedsProvider
     }
 
-    func fetchBreedsImages(page: UInt, order: ResultOrder) {
+    func fetchBreedsImages(page: UInt, sortOrder: ImagesSortOrder) {
 
         self.isFetching = true
 
         Task {
             do {
-                self.images = try await breedsProvider.loadBreedImages(page: page, order: order)
+                self.images = try await breedsProvider.loadBreedImages(page: page, order: sortOrder.resultOrder)
             } catch {
                 throw error
             }
+        }
+    }
+}
+
+private extension ImagesSortOrder {
+    var resultOrder: ResultOrder {
+        switch self {
+        case .alphabetical:
+            return .ascending
+        case .random:
+            return .random
         }
     }
 }

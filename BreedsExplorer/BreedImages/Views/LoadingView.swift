@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-enum ViewState {
-    case content
-    case loading
-}
-
 struct LoadingView<Content>: View where Content: View {
 
     let isLoading: Bool
@@ -23,7 +18,7 @@ struct LoadingView<Content>: View where Content: View {
 
                 self.content()
                     .disabled(isLoading)
-                    .blur(radius: isLoading ? 3 : 0)
+                    .blur(radius: isLoading ? 1 : 0)
 
                 VStack {
                     Text("Loading...")

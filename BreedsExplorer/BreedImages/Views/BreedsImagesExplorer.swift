@@ -12,10 +12,7 @@ struct BreedsImagesExplorer: View {
     @ObservedObject var model: BreedsImagesModel
 
     @State private var layoutConfiguration = LayoutConfiguration.grid
-
-    var state: ViewState {
-        model.images == nil ? .loading : .content
-    }
+    @State private var sortOrder = ImagesSortOrder.random
 
     var body: some View {
 
@@ -30,8 +27,11 @@ struct BreedsImagesExplorer: View {
             }
             .onAppear {
                 if model.images == nil {
-                    self.model.fetchBreedsImages(page: 0, order: .random)
+                    self.loadContent()
                 }
+            }
+            .refreshable {
+                self.loadContent()
             }
             .toolbar {
                 ToolbarItem {
@@ -46,35 +46,72 @@ struct BreedsImagesExplorer: View {
     @ViewBuilder
     var toolbarItem: some View {
         Menu {
-            Picker("", selection: $layoutConfiguration) {
+            Picker("Layout Configuration", selection: $layoutConfiguration) {
                 ForEach(LayoutConfiguration.allCases) { config in
                     Label(config.title, systemImage: config.icon).tag(config)
                 }
             }
             .pickerStyle(.inline)
+            Picker("Sort Order", selection: $sortOrder) {
+                ForEach(ImagesSortOrder.allCases) { sort in
+                    Label(sort.title, systemImage: sort.icon).tag(sort)
+                }
+            }
+            .pickerStyle(.inline)
+            .onChange(of: sortOrder) { _ in
+                self.loadContent()
+            }
         } label: {
-            Label("", systemImage: layoutConfiguration.icon).labelStyle(.iconOnly)
+            Label("", systemImage: .gearImage).labelStyle(.iconOnly)
         }
     }
 }
 
-private enum LayoutConfiguration: String, CaseIterable, Identifiable {
+private extension BreedsImagesExplorer {
 
-    case grid, list
+    enum LayoutConfiguration: String, CaseIterable, Identifiable {
+
+        case grid, list
+
+        var id: String { self.rawValue }
+
+        var title: String {
+            switch self {
+            case .grid: return .grid
+            case .list: return .list
+            }
+        }
+
+        var icon: String {
+            switch self {
+            case .grid: return .gridIcon
+            case .list: return .listIcon
+            }
+        }
+    }
+
+    func loadContent() {
+        self.model.fetchBreedsImages(page: 0, sortOrder: sortOrder)
+    }
+}
+
+enum ImagesSortOrder: String, CaseIterable, Identifiable {
+
+    case alphabetical, random
 
     var id: String { self.rawValue }
 
     var title: String {
         switch self {
-        case .grid: return .grid
-        case .list: return .list
+        case .alphabetical: return .sortAZ
+        case .random: return .sortRandom
         }
     }
 
     var icon: String {
         switch self {
-        case .grid: return .gridIcon
-        case .list: return .listIcon
+        case .alphabetical: return .sortAZImage
+        case .random: return .sortRandomImage
         }
     }
 }
