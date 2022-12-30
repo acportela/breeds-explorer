@@ -23,9 +23,8 @@ struct BreedsImagesList: View {
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.breedsSecondaryColor)
             }
-            .listRowInsets(.init(top: 8, leading: 24, bottom: 8, trailing: 24))
+            .listRowInsets(.init(top: 12, leading: 24, bottom: 12, trailing: 12))
         }
-        .listStyle(.plain)
         .foregroundColor(Color.breedsPrimaryColor)
         .navigationDestination(for: Breed.self) { breed in
             BreedDetail(breed: breed)

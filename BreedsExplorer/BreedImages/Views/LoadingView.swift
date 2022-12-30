@@ -23,9 +23,8 @@ struct LoadingView<Content>: View where Content: View {
                     ProgressView()
                 }
                 .frame(width: geometry.size.width / 2, height: geometry.size.height / 5)
-                .background(Color.breedsSecondaryColor)
+                .background(Color.breedsSecondaryColor.opacity(0))
                 .foregroundColor(Color.breedsPrimaryColor)
-                .cornerRadius(20)
                 .opacity(isLoading ? 1 : 0)
             }
         }

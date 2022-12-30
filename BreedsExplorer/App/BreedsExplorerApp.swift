@@ -12,7 +12,7 @@ struct BreedsExplorerApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MainView(imageProvider: BreedsImagesProvider())
+            MainView(imageProvider: BreedsImagesProvider(), searchProvider: BreedsSearchProvider())
         }
     }
 }

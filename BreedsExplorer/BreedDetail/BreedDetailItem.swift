@@ -23,3 +23,9 @@ struct BreedDetailItem: View {
         .listRowBackground(Color.breedsSecondaryColor)
     }
 }
+
+struct BreedDetailItem_Previews: PreviewProvider {
+    static var previews: some View {
+        BreedDetailItem(trait: ListTrait(traitName: "Name", traitValue: "Siamese")!)
+    }
+}
