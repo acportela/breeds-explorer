@@ -9,27 +9,56 @@ import Foundation
 
 struct BreedsImagesProviderMock: BreedsImagesProviderProtocol {
 
-    func loadBreedImages(page: UInt, order: ResultOrder) async throws -> [BreedImage] {
+    func loadBreedImages(page: UInt, order: ResultOrder) async throws -> [Breed] {
 
-        return [BreedImage(name: "Shih Tzu"),
-                BreedImage(name: "Terrier"),
-                BreedImage(name: "Poodle"),
-                BreedImage(name: "German Shepard"),
-                BreedImage(name: "Abyssinian"),
-                BreedImage(name: "Snowshoe"),
-                BreedImage(name: "Tonkinese"),
-                BreedImage(name: "Turkish Angora")]
+        return BreedsImagesProviderMock.testModel
     }
 }
 
 extension BreedsImagesProviderMock {
 
-    static let testModel: [BreedImage] = [BreedImage(name: "Shih Tzu"),
-                                               BreedImage(name: "Terrier"),
-                                               BreedImage(name: "Poodle"),
-                                               BreedImage(name: "German Shepard"),
-                                               BreedImage(name: "Abyssinian"),
-                                               BreedImage(name: "Snowshoe"),
-                                               BreedImage(name: "Tonkinese"),
-                                               BreedImage(name: "Turkish Angora")]
+    static let description = "York Chocolate cats are known to be true lap cats with a sweet temperament"
+
+    static let testModel: [Breed] = [Breed(name: "York Chocolate",
+                                           imageURL: nil,
+                                           description: description,
+                                           origin: "United States",
+                                           temperament: "Playful, Social, Intelligent, Curious, Friendly",
+                                           lifeSpan: "13 - 15"),
+                                     Breed(name: "York Chocolate",
+                                           imageURL: nil,
+                                           description: description,
+                                           origin: "United States",
+                                           temperament: "Playful, Social, Intelligent, Curious, Friendly",
+                                           lifeSpan: "13 - 15"),
+                                     Breed(name: "York Chocolate",
+                                           imageURL: nil,
+                                           description: description,
+                                           origin: "United States",
+                                           temperament: "Playful, Social, Intelligent, Curious, Friendly",
+                                           lifeSpan: "13 - 15"),
+                                     Breed(name: "York Chocolate",
+                                           imageURL: nil,
+                                           description: description,
+                                           origin: "United States",
+                                           temperament: "Playful, Social, Intelligent, Curious, Friendly",
+                                           lifeSpan: "13 - 15"),
+                                     Breed(name: "York Chocolate",
+                                           imageURL: nil,
+                                           description: description,
+                                           origin: "United States",
+                                           temperament: "Playful, Social, Intelligent, Curious, Friendly",
+                                           lifeSpan: "13 - 15"),
+                                     Breed(name: "York Chocolate",
+                                           imageURL: nil,
+                                           description: description,
+                                           origin: "United States",
+                                           temperament: "Playful, Social, Intelligent, Curious, Friendly",
+                                           lifeSpan: "13 - 15"),
+                                     Breed(name: "York Chocolate",
+                                           imageURL: nil,
+                                           description: description,
+                                           origin: "United States",
+                                           temperament: "Playful, Social, Intelligent, Curious, Friendly",
+                                           lifeSpan: "13 - 15")]
 }

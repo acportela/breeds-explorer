@@ -10,7 +10,7 @@ import Foundation
 @MainActor
 final class BreedsImagesModel: ObservableObject {
 
-    @Published var images: [BreedImage]? {
+    @Published var images: [Breed]? {
         didSet {
             isFetching = false
         }

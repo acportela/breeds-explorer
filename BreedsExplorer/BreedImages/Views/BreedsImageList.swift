@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BreedsImageList: View {
 
-    let breeds: [BreedImage]
+    let breeds: [Breed]
 
     var body: some View {
 
@@ -27,7 +27,7 @@ struct BreedsImageList: View {
         }
         .listStyle(.plain)
         .foregroundColor(Color.breedsPrimaryColor)
-        .navigationDestination(for: BreedImage.self) { breed in
+        .navigationDestination(for: Breed.self) { breed in
             BreedDetail(breed: breed)
         }
     }

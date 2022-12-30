@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BreedsGrid: View {
 
-    let breeds: [BreedImage]
+    let breeds: [Breed]
 
     var gridItems: [GridItem] { [GridItem(.adaptive(minimum: 72, maximum: 100), spacing: 24, alignment: .top)] }
 
@@ -26,7 +26,7 @@ struct BreedsGrid: View {
             }
             .padding(.init(top: 8, leading: 24, bottom: 8, trailing: 24))
             .foregroundColor(Color.breedsPrimaryColor)
-            .navigationDestination(for: BreedImage.self) { breed in
+            .navigationDestination(for: Breed.self) { breed in
                 BreedDetail(breed: breed)
             }
         }

@@ -11,19 +11,9 @@ extension String {
 
     static let pawImage = "pawprint.circle.fill"
     static let searchImage = "magnifyingglass.circle.fill"
-    static let gridIcon = "square.grid.2x2"
-    static let listIcon = "list.bullet"
-    static let sortAZImage = "textformat.abc"
-    static let sortRandomImage = "shuffle"
-    static let gearImage = "gear"
 
     static let breeds = "Breeds"
     static let search = "Search"
-    static let grid = "Grid"
-    static let list = "List"
-
-    static let sortAZ = "A-Z"
-    static let sortRandom = "Random"
 }
 
 extension Color {

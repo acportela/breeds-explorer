@@ -37,7 +37,7 @@ enum BreedsRequestError: Error {
 
 protocol BreedsImagesProviderProtocol {
 
-    func loadBreedImages(page: UInt, order: ResultOrder) async throws -> [BreedImage]
+    func loadBreedImages(page: UInt, order: ResultOrder) async throws -> [Breed]
 }
 
 struct BreedsImagesProvider: BreedsImagesProviderProtocol {
@@ -52,7 +52,7 @@ struct BreedsImagesProvider: BreedsImagesProviderProtocol {
                                                    .formatKey: "json",
                                                    .hasBreedsKey: "true"]
 
-    func loadBreedImages(page: UInt = 0, order: ResultOrder = .random) async throws -> [BreedImage] {
+    func loadBreedImages(page: UInt = 0, order: ResultOrder = .random) async throws -> [Breed] {
 
         guard let request = self.makeRequestWith(page: page, order: order) else { return [] }
 
@@ -64,8 +64,15 @@ struct BreedsImagesProvider: BreedsImagesProviderProtocol {
 
         do {
 
-            let catImages = try JSONDecoder().decode([CatImageDecodable].self, from: data)
-            return catImages.map { BreedImage(name: $0.breed.name, imageURL: $0.url) }
+            let breedsImages = try JSONDecoder().decode([BreedImagesDecodable].self, from: data)
+            return breedsImages.map { item in
+                Breed(name: item.breedInfo.name,
+                      imageURL: item.url,
+                      description: item.breedInfo.description,
+                      origin: item.breedInfo.origin,
+                      temperament: item.breedInfo.temperament,
+                      lifeSpan: item.breedInfo.lifeSpan)
+            }
 
         } catch {
             throw error

@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct CatImageDecodable: Decodable {
+struct BreedImagesDecodable: Decodable {
 
-    let breed: BreedInformation
+    let breedInfo: BreedInfo
     let id: String
     let url: URL
 
@@ -27,18 +27,18 @@ struct CatImageDecodable: Decodable {
         self.id = try container.decode(String.self, forKey: .id)
 
         let urlString = try container.decode(String.self, forKey: .url)
-        let breeds = try container.decode([BreedInformation].self, forKey: .breeds)
+        let breeds = try container.decode([BreedInfo].self, forKey: .breeds)
 
         guard let breed = breeds.first, let url = URL(string: urlString) else {
             throw BreedsRequestError.invalidContent
         }
 
-        self.breed = breed
+        self.breedInfo = breed
         self.url = url
     }
 }
 
-struct BreedInformation: Decodable {
+struct BreedInfo: Decodable {
 
     let name: String
     let temperament: String?

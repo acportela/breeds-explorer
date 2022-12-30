@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ImageAndTextView: View {
 
-    let breed: BreedImage
+    let breed: Breed
 
     var body: some View {
         AsyncImage(url: breed.imageURL) { phase in

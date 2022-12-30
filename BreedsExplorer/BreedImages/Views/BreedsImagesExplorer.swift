@@ -116,6 +116,21 @@ enum ImagesSortOrder: String, CaseIterable, Identifiable {
     }
 }
 
+private extension String {
+
+    static let gridIcon = "square.grid.2x2"
+    static let listIcon = "list.bullet"
+    static let sortAZImage = "textformat.abc"
+    static let sortRandomImage = "shuffle"
+    static let gearImage = "gear"
+
+    static let grid = "Grid"
+    static let list = "List"
+
+    static let sortAZ = "A-Z"
+    static let sortRandom = "Random"
+}
+
 struct BreedsImagesExplorer_Previews: PreviewProvider {
 
     static var previews: some View {
