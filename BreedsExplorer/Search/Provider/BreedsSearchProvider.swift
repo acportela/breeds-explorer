@@ -31,9 +31,7 @@ struct BreedsSearchProvider: BreedsSearchProviderProtocol {
 
         let (data, response) = try await urlSession.data(for: request)
 
-        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-            throw BreedsRequestError.invalidResponse
-        }
+        try response.validate()
 
         do {
             let decoded = try JSONDecoder().decode([BreedsSearchDecodable].self, from: data)
@@ -45,7 +43,6 @@ struct BreedsSearchProvider: BreedsSearchProviderProtocol {
                       temperament: breedInfo.temperament,
                       lifeSpan: breedInfo.lifeSpan)
             }
-
         } catch {
             throw error
         }

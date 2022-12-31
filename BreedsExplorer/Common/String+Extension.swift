@@ -18,8 +18,6 @@ extension String {
 
 extension Color {
 
-    static let breedsAccentColor = Color(red: 239, green: 153, blue: 122)
-
     static let breedsSecondaryColor = Color(red: 251, green: 246, blue: 244)
 
     static let breedsPrimaryColor = Color(red: 235, green: 99, blue: 86)

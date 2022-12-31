@@ -9,30 +9,40 @@ import SwiftUI
 
 struct BreedsImagesView: View {
 
+    static let loadMoreThreshold = 10
+
     @StateObject var model: BreedsImagesModel
+
     @State private var layoutConfiguration = LayoutConfiguration.grid
     @State private var sortOrder = ImagesSortOrder.random
+    @State var shouldRequestMoreItems = false
 
     var body: some View {
 
-        LoadingView(isLoading: model.isFetching && model.breeds.isEmpty) {
+        LoadingView(isLoading: model.isFetching) {
             ZStack {
                 switch layoutConfiguration {
                 case .grid:
-                    BreedsGrid(breeds: model.breeds)
+                    BreedsGrid(breeds: model.breeds,
+                               loadMoreThreshold: Self.loadMoreThreshold,
+                               shouldRequestMoreItems: $shouldRequestMoreItems)
                 case .list:
-                    BreedsImagesList(breeds: model.breeds)
+                    BreedsImagesList(breeds: model.breeds,
+                                     loadMoreThreshold: Self.loadMoreThreshold,
+                                     shouldRequestMoreItems: $shouldRequestMoreItems)
                 }
             }
-            .opacity(model.isFetching ? 0.5 : 1)
-            .disabled(model.isFetching ? true : false)
             .onAppear {
-                if model.breeds.isEmpty {
-                    self.loadContent()
-                }
+                if model.breeds.isEmpty { self.model.reloadItems(sortOrder: sortOrder) }
+            }
+            .onChange(of: shouldRequestMoreItems) { newValue in
+                if newValue == true { self.model.fetchNextPage(sortOrder: sortOrder) }
+            }
+            .onChange(of: model.currentPage) { _ in
+                shouldRequestMoreItems = false
             }
             .refreshable {
-                self.loadContent()
+                self.model.reloadItems(sortOrder: sortOrder)
             }
             .toolbar {
                 ToolbarItem {
@@ -59,8 +69,8 @@ struct BreedsImagesView: View {
                 }
             }
             .pickerStyle(.inline)
-            .onChange(of: sortOrder) { _ in
-                self.loadContent()
+            .onChange(of: sortOrder) { newOrder in
+                self.model.reloadItems(sortOrder: newOrder)
             }
         } label: {
             Label("", systemImage: .gearImage).labelStyle(.iconOnly)
@@ -89,10 +99,6 @@ private extension BreedsImagesView {
             case .list: return .listIcon
             }
         }
-    }
-
-    func loadContent() {
-        self.model.fetchBreedsImages(page: 0, sortOrder: sortOrder)
     }
 }
 

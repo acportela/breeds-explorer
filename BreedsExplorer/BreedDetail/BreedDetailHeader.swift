@@ -14,7 +14,7 @@ struct BreedDetailHeader: View {
     var body: some View {
         HStack(alignment: .center) {
             Spacer()
-            AsyncImage(url: imageUrl) { phase in
+            AsyncImage(url: imageUrl, transaction: .init(animation: .default)) { phase in
                 switch phase {
                 case .success(let image):
                     image.resizable()

@@ -19,7 +19,7 @@ struct BreedsSearchView: View {
     }
 
     var body: some View {
-        LoadingView(isLoading: isFetching && model.filteredBreeds.isEmpty) {
+        LoadingView(isLoading: isFetching) {
             ZStack {
                 List {
                     Section {

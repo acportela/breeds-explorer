@@ -31,8 +31,9 @@ enum ResultOrder: String {
 
 enum BreedsRequestError: Error {
 
-    case invalidResponse
     case invalidContent
+    case unknownError
+    case tooManyRequests
 }
 
 protocol BreedsImagesProviderProtocol {
@@ -45,7 +46,7 @@ struct BreedsImagesProvider: BreedsImagesProviderProtocol {
     private let urlSession = URLSession.shared
 
     let imagesQueryParameters: [String: String] = [.pageKey: "0",
-                                                   .limitKey: "10",
+                                                   .limitKey: "40",
                                                    .sizeKey: "thumb",
                                                    .imageTypeKey: "jpg",
                                                    .orderKey: "RANDOM",
@@ -58,12 +59,9 @@ struct BreedsImagesProvider: BreedsImagesProviderProtocol {
 
         let (data, response) = try await urlSession.data(for: request)
 
-        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-            throw BreedsRequestError.invalidResponse
-        }
+        try response.validate()
 
         do {
-
             let breedsImages = try JSONDecoder().decode([BreedImagesDecodable].self, from: data)
             return breedsImages.map { item in
                 Breed(name: item.breedInfo.name,
@@ -73,9 +71,8 @@ struct BreedsImagesProvider: BreedsImagesProviderProtocol {
                       temperament: item.breedInfo.temperament,
                       lifeSpan: item.breedInfo.lifeSpan)
             }
-
         } catch {
-            throw error
+            throw BreedsRequestError.invalidContent
         }
     }
 }
@@ -96,7 +93,7 @@ private extension BreedsImagesProvider {
             return nil
         }
 
-        var request = URLRequest(url: url, timeoutInterval: 30.0)
+        var request = URLRequest(url: url)
         request.httpMethod = .httpMethod
         request.setValue(.apiKey, forHTTPHeaderField: .apiFieldKey)
 

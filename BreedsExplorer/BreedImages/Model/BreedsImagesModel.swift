@@ -10,12 +10,12 @@ import Foundation
 @MainActor
 final class BreedsImagesModel: ObservableObject {
 
-    @Published var breeds: [Breed] = [] {
+    @Published private (set) var breeds: [Breed] = [] {
         didSet {
             isFetching = false
         }
     }
-    @Published var isFetching = false
+    @Published private (set) var isFetching = false
 
     private let provider: BreedsImagesProviderProtocol
 
@@ -23,15 +23,32 @@ final class BreedsImagesModel: ObservableObject {
         self.provider = provider
     }
 
-    func fetchBreedsImages(page: UInt, sortOrder: ImagesSortOrder) {
+    private (set) var currentPage: UInt = 0
+
+    func reloadItems(sortOrder: ImagesSortOrder) {
+
+        self.fetchContent(newPage: 0, order: sortOrder, refreshingContent: true)
+    }
+
+    func fetchNextPage(sortOrder: ImagesSortOrder) {
+
+        self.fetchContent(newPage: self.currentPage + 1, order: sortOrder, refreshingContent: false)
+    }
+}
+
+private extension BreedsImagesModel {
+
+    func fetchContent(newPage: UInt, order: ImagesSortOrder, refreshingContent: Bool) {
 
         self.isFetching = true
 
         Task {
             do {
-                self.breeds = try await provider.loadBreedImages(page: page, order: sortOrder.resultOrder)
+                let newContent = try await provider.loadBreedImages(page: newPage, order: order.resultOrder)
+                self.breeds = refreshingContent ? newContent : breeds + newContent
+                currentPage = newPage
             } catch {
-                throw error
+                self.breeds = []
             }
         }
     }

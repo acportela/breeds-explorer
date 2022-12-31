@@ -10,16 +10,26 @@ import SwiftUI
 struct BreedsGrid: View {
 
     let breeds: [Breed]
+    let loadMoreThreshold: Int
+
+    @Binding var shouldRequestMoreItems: Bool
 
     var gridItems: [GridItem] { [GridItem(.adaptive(minimum: 72, maximum: 100), spacing: 24, alignment: .top)] }
 
     var body: some View {
         ScrollView {
             LazyVGrid(columns: gridItems, spacing: 24) {
-                ForEach(breeds) { breed in
+                ForEach(breeds.enumerated().map { $0 }, id: \.element) { index, breed in
                     NavigationLink(value: breed) {
                         VStack(spacing: 16.0) {
                             ImageAndTextView(breed: breed)
+                        }
+                        .animation(.default, value: breed.id)
+                        .onAppear {
+                            let unshownItemsCount = self.breeds.count - (index + 1)
+                            if unshownItemsCount <= loadMoreThreshold {
+                                shouldRequestMoreItems = true
+                            }
                         }
                     }
                 }
@@ -34,7 +44,12 @@ struct BreedsGrid: View {
 }
 
 struct BreedsGrid_Previews: PreviewProvider {
+
+    @State static var shouldRequestMoreItems = false
+
     static var previews: some View {
-        BreedsGrid(breeds: BreedsImagesProviderMock.testModel)
+        BreedsGrid(breeds: BreedsImagesProviderMock.testModel,
+                   loadMoreThreshold: 10,
+                   shouldRequestMoreItems: $shouldRequestMoreItems)
     }
 }

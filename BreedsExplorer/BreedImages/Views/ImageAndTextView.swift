@@ -12,7 +12,7 @@ struct ImageAndTextView: View {
     let breed: Breed
 
     var body: some View {
-        AsyncImage(url: breed.imageURL) { phase in
+        AsyncImage(url: breed.imageURL, transaction: .init(animation: .default)) { phase in
             switch phase {
             case .success(let image):
                 image.resizable()

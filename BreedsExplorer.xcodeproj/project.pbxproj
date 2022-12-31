@@ -22,6 +22,7 @@
 		F4224C78295F61970022DBD5 /* BreedsSearchDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4224C77295F61970022DBD5 /* BreedsSearchDecodable.swift */; };
 		F4224C7A295F63ED0022DBD5 /* BreedsSearchProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4224C79295F63ED0022DBD5 /* BreedsSearchProviderMock.swift */; };
 		F4224C82295F708C0022DBD5 /* BreedsSearchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4224C81295F708C0022DBD5 /* BreedsSearchItem.swift */; };
+		F4224C862960AB270022DBD5 /* URLResponse+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4224C852960AB270022DBD5 /* URLResponse+Extension.swift */; };
 		F457D06D295CA4CC00A3ECFE /* BreedsImagesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F457D06C295CA4CC00A3ECFE /* BreedsImagesList.swift */; };
 		F457D06F295CA50F00A3ECFE /* BreedDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F457D06E295CA50F00A3ECFE /* BreedDetail.swift */; };
 		F457D071295CC2ED00A3ECFE /* BreedsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = F457D070295CC2ED00A3ECFE /* BreedsGrid.swift */; };
@@ -50,6 +51,7 @@
 		F4224C77295F61970022DBD5 /* BreedsSearchDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedsSearchDecodable.swift; sourceTree = "<group>"; };
 		F4224C79295F63ED0022DBD5 /* BreedsSearchProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedsSearchProviderMock.swift; sourceTree = "<group>"; };
 		F4224C81295F708C0022DBD5 /* BreedsSearchItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedsSearchItem.swift; sourceTree = "<group>"; };
+		F4224C852960AB270022DBD5 /* URLResponse+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLResponse+Extension.swift"; sourceTree = "<group>"; };
 		F457D06C295CA4CC00A3ECFE /* BreedsImagesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedsImagesList.swift; sourceTree = "<group>"; };
 		F457D06E295CA50F00A3ECFE /* BreedDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedDetail.swift; sourceTree = "<group>"; };
 		F457D070295CC2ED00A3ECFE /* BreedsGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedsGrid.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				F48E5C61295C64AC00D9A20E /* String+Extension.swift */,
+				F4224C852960AB270022DBD5 /* URLResponse+Extension.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 				F457D06F295CA50F00A3ECFE /* BreedDetail.swift in Sources */,
 				F4224C6D295F41740022DBD5 /* BreedDetailItem.swift in Sources */,
 				F48E5C66295C686D00D9A20E /* BreedsImagesView.swift in Sources */,
+				F4224C862960AB270022DBD5 /* URLResponse+Extension.swift in Sources */,
 				F48E5C64295C65E000D9A20E /* MainView.swift in Sources */,
 				F4224C26295DFA990022DBD5 /* LoadingView.swift in Sources */,
 				F4224C20295DF60D0022DBD5 /* ImageAndTextView.swift in Sources */,
