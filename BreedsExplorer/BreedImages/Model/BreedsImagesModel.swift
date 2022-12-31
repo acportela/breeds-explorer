@@ -10,7 +10,7 @@ import Foundation
 @MainActor
 final class BreedsImagesModel: ObservableObject {
 
-    @Published var images: [Breed]? {
+    @Published var breeds: [Breed] = [] {
         didSet {
             isFetching = false
         }
@@ -29,7 +29,7 @@ final class BreedsImagesModel: ObservableObject {
 
         Task {
             do {
-                self.images = try await provider.loadBreedImages(page: page, order: sortOrder.resultOrder)
+                self.breeds = try await provider.loadBreedImages(page: page, order: sortOrder.resultOrder)
             } catch {
                 throw error
             }

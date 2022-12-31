@@ -15,17 +15,19 @@ struct BreedsImagesView: View {
 
     var body: some View {
 
-        LoadingView(isLoading: model.isFetching) {
+        LoadingView(isLoading: model.isFetching && model.breeds.isEmpty) {
             ZStack {
                 switch layoutConfiguration {
                 case .grid:
-                    BreedsGrid(breeds: model.images ?? [])
+                    BreedsGrid(breeds: model.breeds)
                 case .list:
-                    BreedsImagesList(breeds: model.images ?? [])
+                    BreedsImagesList(breeds: model.breeds)
                 }
             }
+            .opacity(model.isFetching ? 0.5 : 1)
+            .disabled(model.isFetching ? true : false)
             .onAppear {
-                if model.images == nil {
+                if model.breeds.isEmpty {
                     self.loadContent()
                 }
             }

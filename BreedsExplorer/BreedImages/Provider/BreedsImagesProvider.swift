@@ -96,7 +96,7 @@ private extension BreedsImagesProvider {
             return nil
         }
 
-        var request = URLRequest(url: url)
+        var request = URLRequest(url: url, timeoutInterval: 30.0)
         request.httpMethod = .httpMethod
         request.setValue(.apiKey, forHTTPHeaderField: .apiFieldKey)
 
