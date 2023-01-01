@@ -10,6 +10,7 @@ import SwiftUI
 struct BreedsImagesList: View {
 
     @ObservedObject var model: BreedsImagesModel
+
     let hasLargeWidth: Bool
 
     var size: CGFloat { hasLargeWidth ? 200 : 100 }
@@ -43,7 +44,6 @@ struct BreedsImagesList: View {
 struct BreedsImageList_Previews: PreviewProvider {
 
     static var previews: some View {
-        BreedsImagesList(model: BreedsImagesModel(provider: BreedsImagesProviderMock()),
-                         hasLargeWidth: false)
+        BreedsImagesList(model: BreedsImagesModel(provider: BreedsImagesProviderMock()), hasLargeWidth: false)
     }
 }

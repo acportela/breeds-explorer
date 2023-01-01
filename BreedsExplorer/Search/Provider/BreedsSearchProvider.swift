@@ -44,6 +44,7 @@ struct BreedsSearchProvider: BreedsSearchProviderProtocol {
                       lifeSpan: breedInfo.lifeSpan)
             }
         } catch {
+
             throw error
         }
     }

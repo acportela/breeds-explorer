@@ -66,6 +66,7 @@ private extension String {
 }
 
 struct BreedDetail_Previews: PreviewProvider {
+
     static var previews: some View {
         BreedDetail(breed: BreedsImagesProviderMock.testModel[0])
     }

@@ -25,6 +25,7 @@ private extension String {
 }
 
 enum ResultOrder: String {
+
     case ascending = "ASC"
     case random = "RANDOM"
 }
@@ -34,6 +35,15 @@ enum BreedsRequestError: Error {
     case invalidContent
     case unknownError
     case tooManyRequests
+
+    var message: String {
+        switch self {
+        case .invalidContent, .unknownError:
+            return "That's some strange error. Please try again"
+        case .tooManyRequests:
+            return "Sorry, our servers are busy. Please wait a few minutes and try again"
+        }
+    }
 }
 
 protocol BreedsImagesProviderProtocol {
@@ -63,6 +73,7 @@ struct BreedsImagesProvider: BreedsImagesProviderProtocol {
 
         do {
             let breedsImages = try JSONDecoder().decode([BreedImagesDecodable].self, from: data)
+
             return breedsImages.map { item in
                 Breed(name: item.breedInfo.name,
                       imageURL: item.url,

@@ -29,14 +29,24 @@ final class BreedsSearchModel: ObservableObject {
             }
         }
     }
+
     @Published var filteredBreeds: [Breed] = []
+
+    @Published var isPresentingError: Bool = false
+    private (set) var lastPresentedError: BreedsRequestError = .unknownError
 
     private var searchPublisher: AnyCancellable?
     private let provider: BreedsSearchProviderProtocol
 
     init(provider: BreedsSearchProviderProtocol) {
+
         self.provider = provider
         self.configureSearchPublisher()
+    }
+
+    deinit {
+
+        self.searchPublisher?.cancel()
     }
 
     func fetchBreeds() {
@@ -48,17 +58,21 @@ final class BreedsSearchModel: ObservableObject {
                 let breeds = try await provider.fetchAllBreeds()
                 self.state.viewState = .content(breeds: breeds)
             } catch {
-                throw error
+                self.handleError(error)
             }
         }
     }
-
-    deinit {
-        self.searchPublisher?.cancel()
-    }
 }
 
-extension BreedsSearchModel {
+private extension BreedsSearchModel {
+
+    func handleError(_ error: Error) {
+
+        self.state.searchTerm = ""
+        self.state.viewState = .content(breeds: [])
+        self.isPresentingError = true
+        self.lastPresentedError = (error as? BreedsRequestError) ?? .unknownError
+    }
 
     func configureSearchPublisher() {
 

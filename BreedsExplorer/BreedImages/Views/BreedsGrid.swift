@@ -10,6 +10,7 @@ import SwiftUI
 struct BreedsGrid: View {
 
     @ObservedObject var model: BreedsImagesModel
+
     let hasLargeWidth: Bool
 
     private var largeGridItem: GridItem { GridItem(.adaptive(minimum: 144, maximum: 288),
@@ -18,6 +19,7 @@ struct BreedsGrid: View {
     private var regularGridItem: GridItem { GridItem(.adaptive(minimum: 72, maximum: 96),
                                                      spacing: 36,
                                                      alignment: .top) }
+
     private var gridItems: [GridItem] { hasLargeWidth ?  [largeGridItem] : [regularGridItem] }
 
     private var horizontalSpacing: CGFloat { hasLargeWidth ? 48 : 24 }
@@ -54,7 +56,6 @@ struct BreedsGrid: View {
 struct BreedsGrid_Previews: PreviewProvider {
 
     static var previews: some View {
-        BreedsGrid(model: BreedsImagesModel(provider: BreedsImagesProviderMock()),
-                   hasLargeWidth: false)
+        BreedsGrid(model: BreedsImagesModel(provider: BreedsImagesProviderMock()), hasLargeWidth: false)
     }
 }

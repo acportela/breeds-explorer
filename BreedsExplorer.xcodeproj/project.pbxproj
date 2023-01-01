@@ -23,6 +23,7 @@
 		F4224C7A295F63ED0022DBD5 /* BreedsSearchProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4224C79295F63ED0022DBD5 /* BreedsSearchProviderMock.swift */; };
 		F4224C82295F708C0022DBD5 /* BreedsSearchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4224C81295F708C0022DBD5 /* BreedsSearchItem.swift */; };
 		F4224C862960AB270022DBD5 /* URLResponse+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4224C852960AB270022DBD5 /* URLResponse+Extension.swift */; };
+		F4224C88296231330022DBD5 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4224C87296231330022DBD5 /* View+Extension.swift */; };
 		F457D06D295CA4CC00A3ECFE /* BreedsImagesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F457D06C295CA4CC00A3ECFE /* BreedsImagesList.swift */; };
 		F457D06F295CA50F00A3ECFE /* BreedDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F457D06E295CA50F00A3ECFE /* BreedDetail.swift */; };
 		F457D071295CC2ED00A3ECFE /* BreedsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = F457D070295CC2ED00A3ECFE /* BreedsGrid.swift */; };
@@ -52,6 +53,7 @@
 		F4224C79295F63ED0022DBD5 /* BreedsSearchProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedsSearchProviderMock.swift; sourceTree = "<group>"; };
 		F4224C81295F708C0022DBD5 /* BreedsSearchItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedsSearchItem.swift; sourceTree = "<group>"; };
 		F4224C852960AB270022DBD5 /* URLResponse+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLResponse+Extension.swift"; sourceTree = "<group>"; };
+		F4224C87296231330022DBD5 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		F457D06C295CA4CC00A3ECFE /* BreedsImagesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedsImagesList.swift; sourceTree = "<group>"; };
 		F457D06E295CA50F00A3ECFE /* BreedDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedDetail.swift; sourceTree = "<group>"; };
 		F457D070295CC2ED00A3ECFE /* BreedsGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedsGrid.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 			children = (
 				F48E5C61295C64AC00D9A20E /* String+Extension.swift */,
 				F4224C852960AB270022DBD5 /* URLResponse+Extension.swift */,
+				F4224C87296231330022DBD5 /* View+Extension.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 				F4224C26295DFA990022DBD5 /* LoadingView.swift in Sources */,
 				F4224C20295DF60D0022DBD5 /* ImageAndTextView.swift in Sources */,
 				F4224C28295E0C170022DBD5 /* BreedsImagesProvider.swift in Sources */,
+				F4224C88296231330022DBD5 /* View+Extension.swift in Sources */,
 				F4224C78295F61970022DBD5 /* BreedsSearchDecodable.swift in Sources */,
 				F457D06D295CA4CC00A3ECFE /* BreedsImagesList.swift in Sources */,
 				F4224C2A295E0C900022DBD5 /* Breed.swift in Sources */,
@@ -475,9 +479,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = BreedsExplorer/BreedsExplorer.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BreedsExplorer/Preview Content\"";
+				DEVELOPMENT_TEAM = 4KYD88NNTV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BreedsExplorer/Info.plist;
@@ -499,6 +505,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = acportela.BreedsExplorer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -515,9 +522,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = BreedsExplorer/BreedsExplorer.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BreedsExplorer/Preview Content\"";
+				DEVELOPMENT_TEAM = 4KYD88NNTV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BreedsExplorer/Info.plist;
@@ -539,6 +548,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = acportela.BreedsExplorer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

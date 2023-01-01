@@ -34,7 +34,6 @@ struct ImageAndTextView: View {
 
 struct ImageAndTextView_Previews: PreviewProvider {
     static var previews: some View {
-        ImageAndTextView(breed: BreedsImagesProviderMock.testModel[0],
-                         imageSize: 100)
+        ImageAndTextView(breed: BreedsImagesProviderMock.testModel[0], imageSize: 100)
     }
 }

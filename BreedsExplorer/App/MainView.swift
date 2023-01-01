@@ -40,9 +40,6 @@ struct MainView: View {
 struct MainView_Previews: PreviewProvider {
 
     static var previews: some View {
-
-        // Switch do actual provider to see the actual images
-        MainView(imageProvider: BreedsImagesProviderMock(),
-                 searchProvider: BreedsSearchProviderMock())
+        MainView(imageProvider: BreedsImagesProviderMock(), searchProvider: BreedsSearchProviderMock())
     }
 }

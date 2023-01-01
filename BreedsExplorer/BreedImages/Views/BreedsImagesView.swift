@@ -13,6 +13,8 @@ struct BreedsImagesView: View {
     @State private var layoutConfiguration = LayoutConfiguration.grid
 
     let availableWidth: CGFloat
+
+    // iPhones in landscape or iPads
     var hasLargeWidth: Bool { availableWidth > 430 }
 
     var body: some View {
@@ -36,6 +38,10 @@ struct BreedsImagesView: View {
                 ToolbarItem {
                     toolbarItem
                 }
+            }
+            .setupErrorAlert(with: $model.isPresentingError,
+                             error: model.lastPresentedError) {
+                model.reloadItems()
             }
             .background(Color.breedsSecondaryColor)
             .navigationTitle(String.breeds)
@@ -128,9 +134,7 @@ private extension String {
 
 struct BreedsImagesExplorer_Previews: PreviewProvider {
 
-    static let model = BreedsImagesModel(provider: BreedsImagesProviderMock())
-
     static var previews: some View {
-        BreedsImagesView(model: model, availableWidth: 430)
+        BreedsImagesView(model: BreedsImagesModel(provider: BreedsImagesProviderMock()), availableWidth: 430)
     }
 }

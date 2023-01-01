@@ -30,8 +30,6 @@ struct BreedsSearchView: View {
                     }
                 }
             }
-            .opacity(isFetching ? 0.5 : 1)
-            .disabled(isFetching ? true : false)
             .searchable(text: $model.state.searchTerm, prompt: String.searchForBreedPrompt)
             .onAppear {
                 if model.filteredBreeds.isEmpty {
@@ -41,6 +39,12 @@ struct BreedsSearchView: View {
             .refreshable {
                 model.fetchBreeds()
             }
+            .setupErrorAlert(with: $model.isPresentingError,
+                             error: model.lastPresentedError) {
+                model.fetchBreeds()
+            }
+            .background(Color.breedsSecondaryColor)
+            .navigationTitle(String.breeds)
             .navigationTitle(String.search)
             .navigationDestination(for: Breed.self) { breed in
                 BreedDetail(breed: breed)

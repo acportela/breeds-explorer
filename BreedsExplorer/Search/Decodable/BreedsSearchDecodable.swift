@@ -50,6 +50,7 @@ struct BreedsSearchDecodable: Decodable {
             self.imageURL = URL(string: url)
 
         } catch {
+
             throw BreedsRequestError.invalidContent
         }
     }
