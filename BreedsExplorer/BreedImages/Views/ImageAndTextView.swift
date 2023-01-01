@@ -10,29 +10,31 @@ import SwiftUI
 struct ImageAndTextView: View {
 
     let breed: Breed
+    let imageSize: CGFloat
 
     var body: some View {
         AsyncImage(url: breed.imageURL, transaction: .init(animation: .default)) { phase in
             switch phase {
             case .success(let image):
-                image.resizable()
+                image
+                    .resizable()
                     .scaledToFit()
                     .cornerRadius(8)
-                    .frame(width: 80, height: 80)
+                    .frame(width: imageSize, height: imageSize)
             default:
                 Image(systemName: .pawImage)
                     .resizable()
-                    .scaledToFill()
-                    .frame(width: 60, height: 60)
+                    .scaledToFit()
+                    .frame(width: imageSize * 0.8, height: imageSize * 0.8)
             }
         }
         Text(breed.name)
-            .font(.headline)
     }
 }
 
 struct ImageAndTextView_Previews: PreviewProvider {
     static var previews: some View {
-        ImageAndTextView(breed: BreedsImagesProviderMock.testModel[0])
+        ImageAndTextView(breed: BreedsImagesProviderMock.testModel[0],
+                         imageSize: 100)
     }
 }

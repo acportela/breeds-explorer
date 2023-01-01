@@ -17,17 +17,22 @@ struct LoadingView<Content>: View where Content: View {
             ZStack(alignment: .center) {
                 self.content()
                     .disabled(isLoading)
-                    .blur(radius: isLoading ? 1 : 0)
+                    .blur(radius: isLoading ? 2 : 0)
                 VStack {
-                    Text("Loading...")
+                    Text(String.loading)
                     ProgressView()
                 }
                 .frame(width: geometry.size.width / 2, height: geometry.size.height / 5)
                 .background(Color.breedsSecondaryColor)
-                .cornerRadius(16)
+                .cornerRadius(24)
                 .foregroundColor(Color.breedsPrimaryColor)
                 .opacity(isLoading ? 1 : 0)
             }
         }
     }
+}
+
+private extension String {
+
+    static let loading = "Loading..."
 }

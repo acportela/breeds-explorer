@@ -17,6 +17,9 @@ struct BreedsImagesView: View {
     @State private var sortOrder = ImagesSortOrder.random
     @State var shouldRequestMoreItems = false
 
+    let availableWidth: CGFloat
+    var hasLargeWidth: Bool { availableWidth > 430 }
+
     var body: some View {
 
         LoadingView(isLoading: model.isFetching) {
@@ -25,10 +28,12 @@ struct BreedsImagesView: View {
                 case .grid:
                     BreedsGrid(breeds: model.breeds,
                                loadMoreThreshold: Self.loadMoreThreshold,
+                               hasLargeWidth: hasLargeWidth,
                                shouldRequestMoreItems: $shouldRequestMoreItems)
                 case .list:
                     BreedsImagesList(breeds: model.breeds,
                                      loadMoreThreshold: Self.loadMoreThreshold,
+                                     hasLargeWidth: hasLargeWidth,
                                      shouldRequestMoreItems: $shouldRequestMoreItems)
                 }
             }
@@ -143,6 +148,6 @@ struct BreedsImagesExplorer_Previews: PreviewProvider {
     static let model = BreedsImagesModel(provider: BreedsImagesProviderMock())
 
     static var previews: some View {
-        BreedsImagesView(model: model)
+        BreedsImagesView(model: model, availableWidth: 430)
     }
 }

@@ -15,7 +15,10 @@ struct MainView: View {
     var body: some View {
         TabView {
             NavigationStack {
-                BreedsImagesView(model: BreedsImagesModel(provider: imageProvider))
+                GeometryReader { proxy in
+                    BreedsImagesView(model: BreedsImagesModel(provider: imageProvider),
+                                     availableWidth: proxy.size.width)
+                }
             }.tabItem {
                 Label(String.breeds, systemImage: .pawImage)
             }
