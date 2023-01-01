@@ -16,7 +16,10 @@ final class BreedsImagesModel: ObservableObject {
     }
 
     @Published private (set) var isFetching = false
+    @Published var sortOrder: ImagesSortOrder = .random
+
     private (set) var currentPage: UInt = 0
+    private static let fetchMoreThreshold = 10
 
     private let provider: BreedsImagesProviderProtocol
 
@@ -25,31 +28,33 @@ final class BreedsImagesModel: ObservableObject {
         self.provider = provider
     }
 
-    func reloadItems(sortOrder: ImagesSortOrder) {
+    func reloadItems() {
 
-        self.fetchContent(newPage: 0, order: sortOrder)
+        self.fetchContent(newPage: 0)
     }
 
-    func fetchNextPage(sortOrder: ImagesSortOrder) {
+    func fetchMoreContentIfNeeded(for breedId: Breed.ID) {
 
-        self.fetchContent(newPage: self.currentPage + 1, order: sortOrder)
+        let thresholdIndex = breeds.index(breeds.endIndex, offsetBy: -Self.fetchMoreThreshold)
+        let shouldLoadMore = breeds.firstIndex(where: { $0.id == breedId }) == thresholdIndex
+
+        if shouldLoadMore { self.fetchContent(newPage: self.currentPage + 1) }
     }
 }
 
 private extension BreedsImagesModel {
 
-    func fetchContent(newPage: UInt, order: ImagesSortOrder) {
+    func fetchContent(newPage: UInt) {
 
         self.isFetching = true
 
         Task {
             do {
 
-                let newContent = try await provider.loadBreedImages(page: newPage, order: order.resultOrder)
+                let newContent = try await provider.loadBreedImages(page: newPage, order: sortOrder.resultOrder)
                 self.breeds = newPage == 0 ? newContent : breeds + newContent
 
                 if newContent.isEmpty == false {
-
                     currentPage = newPage
                 }
 

@@ -9,13 +9,8 @@ import SwiftUI
 
 struct BreedsImagesView: View {
 
-    static let loadMoreThreshold = 10
-
     @StateObject var model: BreedsImagesModel
-
     @State private var layoutConfiguration = LayoutConfiguration.grid
-    @State private var sortOrder = ImagesSortOrder.random
-    @State var shouldRequestMoreItems = false
 
     let availableWidth: CGFloat
     var hasLargeWidth: Bool { availableWidth > 430 }
@@ -26,28 +21,16 @@ struct BreedsImagesView: View {
             ZStack {
                 switch layoutConfiguration {
                 case .grid:
-                    BreedsGrid(breeds: model.breeds,
-                               loadMoreThreshold: Self.loadMoreThreshold,
-                               hasLargeWidth: hasLargeWidth,
-                               shouldRequestMoreItems: $shouldRequestMoreItems)
+                    BreedsGrid(model: model, hasLargeWidth: hasLargeWidth)
                 case .list:
-                    BreedsImagesList(breeds: model.breeds,
-                                     loadMoreThreshold: Self.loadMoreThreshold,
-                                     hasLargeWidth: hasLargeWidth,
-                                     shouldRequestMoreItems: $shouldRequestMoreItems)
+                    BreedsImagesList(model: model, hasLargeWidth: hasLargeWidth)
                 }
             }
             .onAppear {
-                if model.breeds.isEmpty { self.model.reloadItems(sortOrder: sortOrder) }
-            }
-            .onChange(of: shouldRequestMoreItems) { newValue in
-                if newValue == true { self.model.fetchNextPage(sortOrder: sortOrder) }
-            }
-            .onChange(of: model.currentPage) { _ in
-                shouldRequestMoreItems = false
+                if model.breeds.isEmpty { self.model.reloadItems() }
             }
             .refreshable {
-                self.model.reloadItems(sortOrder: sortOrder)
+                self.model.reloadItems()
             }
             .toolbar {
                 ToolbarItem {
@@ -62,20 +45,20 @@ struct BreedsImagesView: View {
     @ViewBuilder
     var toolbarItem: some View {
         Menu {
-            Picker("Layout Configuration", selection: $layoutConfiguration) {
-                ForEach(LayoutConfiguration.allCases) { config in
-                    Label(config.title, systemImage: config.icon).tag(config)
+            Picker("", selection: $layoutConfiguration) {
+                ForEach(LayoutConfiguration.allCases) { configuration in
+                    Label(configuration.title, systemImage: configuration.icon).tag(configuration)
                 }
             }
             .pickerStyle(.inline)
-            Picker("Sort Order", selection: $sortOrder) {
+            Picker("", selection: $model.sortOrder) {
                 ForEach(ImagesSortOrder.allCases) { sort in
                     Label(sort.title, systemImage: sort.icon).tag(sort)
                 }
             }
             .pickerStyle(.inline)
-            .onChange(of: sortOrder) { newOrder in
-                self.model.reloadItems(sortOrder: newOrder)
+            .onChange(of: model.sortOrder) { _ in
+                self.model.reloadItems()
             }
         } label: {
             Label("", systemImage: .gearImage).labelStyle(.iconOnly)

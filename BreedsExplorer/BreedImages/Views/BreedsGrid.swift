@@ -9,11 +9,8 @@ import SwiftUI
 
 struct BreedsGrid: View {
 
-    let breeds: [Breed]
-    let loadMoreThreshold: Int
+    @ObservedObject var model: BreedsImagesModel
     let hasLargeWidth: Bool
-
-    @Binding var shouldRequestMoreItems: Bool
 
     private var largeGridItem: GridItem { GridItem(.adaptive(minimum: 144, maximum: 288),
                                                    spacing: 96,
@@ -30,17 +27,14 @@ struct BreedsGrid: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: gridItems, spacing: 24) {
-                ForEach(breeds.enumerated().map { $0 }, id: \.element) { index, breed in
+                ForEach(model.breeds) { breed in
                     NavigationLink(value: breed) {
                         VStack(spacing: 16.0) {
                             ImageAndTextView(breed: breed, imageSize: imageSize).font(.headline)
                         }
                         .animation(.default, value: breed.id)
                         .onAppear {
-                            let unshownItemsCount = self.breeds.count - (index + 1)
-                            if unshownItemsCount <= loadMoreThreshold && shouldRequestMoreItems == false {
-                                shouldRequestMoreItems = true
-                            }
+                            model.fetchMoreContentIfNeeded(for: breed.id)
                         }
                     }
                 }
@@ -59,12 +53,8 @@ struct BreedsGrid: View {
 
 struct BreedsGrid_Previews: PreviewProvider {
 
-    @State static var shouldRequestMoreItems = false
-
     static var previews: some View {
-        BreedsGrid(breeds: BreedsImagesProviderMock.testModel,
-                   loadMoreThreshold: 10,
-                   hasLargeWidth: false,
-                   shouldRequestMoreItems: $shouldRequestMoreItems)
+        BreedsGrid(model: BreedsImagesModel(provider: BreedsImagesProviderMock()),
+                   hasLargeWidth: false)
     }
 }
