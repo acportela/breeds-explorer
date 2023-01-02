@@ -17,12 +17,11 @@ struct LoadingView<Content>: View where Content: View {
             ZStack(alignment: .center) {
                 self.content()
                     .disabled(isLoading)
-                    .blur(radius: isLoading ? 2 : 0)
-                VStack {
+                VStack(alignment: .center) {
                     Text(String.loading)
                     ProgressView()
                 }
-                .frame(width: geometry.size.width / 2, height: geometry.size.height / 5)
+                .frame(width: geometry.size.width / 3, height: geometry.size.height / 5)
                 .background(Color.breedsSecondaryColor)
                 .cornerRadius(24)
                 .foregroundColor(Color.breedsPrimaryColor)

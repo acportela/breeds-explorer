@@ -25,7 +25,8 @@ struct ImageAndTextView: View {
                 Image(systemName: .pawImage)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: imageSize * 0.8, height: imageSize * 0.8)
+                    .frame(width: imageSize * 0.7, height: imageSize * 0.7)
+                    .foregroundColor(Color.breedsAccentColor)
             }
         }
         Text(breed.name)

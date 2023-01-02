@@ -17,14 +17,14 @@ struct BreedsGrid: View {
                                                    spacing: 96,
                                                    alignment: .top) }
     private var regularGridItem: GridItem { GridItem(.adaptive(minimum: 72, maximum: 96),
-                                                     spacing: 36,
+                                                     spacing: 96,
                                                      alignment: .top) }
 
     private var gridItems: [GridItem] { hasLargeWidth ?  [largeGridItem] : [regularGridItem] }
 
     private var horizontalSpacing: CGFloat { hasLargeWidth ? 48 : 24 }
     private var verticalSpacing: CGFloat { hasLargeWidth ? 16 : 8 }
-    private var imageSize: CGFloat { hasLargeWidth ? 200 : 100 }
+    private var imageSize: CGFloat { hasLargeWidth ? 200 : 150 }
 
     var body: some View {
         ScrollView {

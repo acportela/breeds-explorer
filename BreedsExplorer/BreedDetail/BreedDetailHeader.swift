@@ -20,13 +20,13 @@ struct BreedDetailHeader: View {
                     image.resizable()
                         .scaledToFit()
                         .cornerRadius(8)
-                        .frame(height: 120)
+                        .frame(height: 200)
                 default:
                     Image(systemName: .pawImage)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 80, height: 80)
-                        .foregroundColor(Color.breedsPrimaryColor)
+                        .frame(width: 120, height: 120)
+                        .foregroundColor(Color.breedsAccentColor)
                 }
             }
             Spacer()

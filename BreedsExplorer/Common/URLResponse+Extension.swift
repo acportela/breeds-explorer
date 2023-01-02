@@ -16,7 +16,6 @@ extension URLResponse {
         let statusCode = response.statusCode
 
         if statusCode == 200 { return }
-
         if statusCode == 429 { throw BreedsRequestError.tooManyRequests }
 
         throw BreedsRequestError.unknownError
